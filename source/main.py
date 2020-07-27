@@ -1,6 +1,6 @@
 import streamlit as st
 import streamlit.components.v1 as components
-from graph import Graph
+from source.graph import Graph
 
 from source.variables import *
 

@@ -3,12 +3,12 @@ from pyvis.network import Network
 from source.variables import *
 import os
 
+
 # Can try to fix for session specific ID later, but leave it for now.
 @st.cache(allow_output_mutation=True)
 class Graph:
     def __init__(self):
-        self.defaultGraph = defaultGraph
-        self.counter = 1
+        self.defaultGraph = example1
 
     def updateVariable(self):
         with open('output.html', 'r') as file:
