@@ -12,9 +12,9 @@ import plotly.graph_objects as go
 import streamlit as st
 from plotly import express as px
 from plotly.subplots import make_subplots
-from source.variables import *
 from source.graph import Graph
 import streamlit.components.v1 as components
+from source.layout import local_css
 
 # matplotlib.use("TkAgg")
 matplotlib.use("Agg")
@@ -24,17 +24,19 @@ BACKGROUND_COLOR = "#fff"
 
 def main():
     """Main function. Run this to run the app"""
-    st.sidebar.title("Layout and Style Experiments")
-    st.sidebar.header("Settings")
+    # st.sidebar.header("Settings")
     st.title("European Union Legislation Visualised")
-    st.write("The following illustrations help to illustrate European Union Legislation and provisions cited.")
+    st.write("The following illustrations help to illustrate European Union Legislation and provisions cited in a document.")
     st.write("Select an option to visualise in the dropdown.")
     option = st.selectbox('', ('', 'Example 1', 'Example 2', 'Example 3'))
     graph = Graph()
-    components.html(graph.defaultGraph, width=1000, height=550)
-
+    components.html(graph.defaultGraph, width=1200, height=500)
+    local_css("style.css")
+    st.markdown('**The text below shows relevant sections highlighted by the transformer models.**')
+    t = "<div>Hello there my <span class='highlight blue'>name <span class='bold'>yo</span> </span> is <span class='highlight red'>Fanilo <span class='bold'>Name</span></span></div>"
+    st.markdown(t, unsafe_allow_html=True)
     select_block_container_style()
-    add_resources_section()
+    # add_resources_section()
 
     # My preliminary idea of an API for generating a grid
     # with Grid("1 1 1", color=COLOR, background_color=BACKGROUND_COLOR) as grid:
@@ -62,14 +64,14 @@ def main():
     # st.plotly_chart(get_plotly_subplots())
 
 
-def add_resources_section():
-    """Adds a resources section to the sidebar"""
-    st.sidebar.header("Add_resources_section")
-    st.sidebar.markdown(
-        """
-- [gridbyexample.com] (https://gridbyexample.com/examples/)
-"""
-    )
+# def add_resources_section():
+#     """Adds a resources section to the sidebar"""
+#     st.sidebar.header("Add_resources_section")
+#     st.sidebar.markdown(
+#         """
+# - [gridbyexample.com] (https://gridbyexample.com/examples/)
+# """
+#     )
 
 
 class Cell:
@@ -209,41 +211,41 @@ class Grid:
 def select_block_container_style():
     """Add selection section for setting setting the max-width and padding
     of the main block container"""
-    st.sidebar.header("Block Container Style")
-    max_width_100_percent = st.sidebar.checkbox("Max-width: 100%?", False)
-    if not max_width_100_percent:
-        max_width = st.sidebar.slider("Select max-width in px", 100, 2000, 1200, 100)
-    else:
-        max_width = 1200
-    dark_theme = st.sidebar.checkbox("Dark Theme?", False)
-    padding_top = st.sidebar.number_input("Select padding top in rem", 0, 200, 5, 1)
-    padding_right = st.sidebar.number_input("Select padding right in rem", 0, 200, 1, 1)
-    padding_left = st.sidebar.number_input("Select padding left in rem", 0, 200, 1, 1)
-    padding_bottom = st.sidebar.number_input(
-        "Select padding bottom in rem", 0, 200, 10, 1
-    )
-    if dark_theme:
-        global COLOR
-        global BACKGROUND_COLOR
-        BACKGROUND_COLOR = "rgb(17,17,17)"
-        COLOR = "#fff"
-
-    _set_block_container_style(
-        max_width,
-        max_width_100_percent,
-        padding_top,
-        padding_right,
-        padding_left,
-        padding_bottom,
-    )
+    _set_block_container_style()
+    # st.sidebar.header("Block Container Style")
+    # max_width_100_percent = st.sidebar.checkbox("Max-width: 100%?", False)
+    # if not max_width_100_percent:
+    #     max_width = st.sidebar.slider("Select max-width in px", 100, 2000, 1200, 100)
+    # else:
+    #     max_width = 1200
+    # dark_theme = st.sidebar.checkbox("Dark Theme?", False)
+    # padding_top = st.sidebar.number_input("Select padding top in rem", 0, 200, 5, 1)
+    # padding_right = st.sidebar.number_input("Select padding right in rem", 0, 200, 1, 1)
+    # padding_left = st.sidebar.number_input("Select padding left in rem", 0, 200, 1, 1)
+    # padding_bottom = st.sidebar.number_input(
+    #     "Select padding bottom in rem", 0, 200, 10, 1
+    # )
+    # if dark_theme:
+    #     global COLOR
+    #     global BACKGROUND_COLOR
+    #     BACKGROUND_COLOR = "rgb(17,17,17)"
+    #     COLOR = "#fff"
+    # _set_block_container_style(
+    #     max_width,
+    #     max_width_100_percent,
+    #     padding_top,
+    #     padding_right,
+    #     padding_left,
+    #     padding_bottom,
+    # )
 
 
 def _set_block_container_style(
-        max_width: int = 1200,
+        max_width: int = 1000,
         max_width_100_percent: bool = False,
         padding_top: int = 5,
-        padding_right: int = 1,
-        padding_left: int = 1,
+        padding_right: int = 0,
+        padding_left: int = 0,
         padding_bottom: int = 10,
 ):
     if max_width_100_percent:
@@ -268,6 +270,7 @@ def _set_block_container_style(
 """,
         unsafe_allow_html=True,
     )
+
 
 #
 # @st.cache

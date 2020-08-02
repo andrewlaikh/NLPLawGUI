@@ -1,16 +1,24 @@
+import re
 import streamlit as st
 import streamlit.components.v1 as components
 from source.graph import Graph
-
-from source.variables import *
+from source.layout import local_css
+from source.layout import set_block_container_style
 
 graph = Graph()
 
 st.title("EU Legal documents visualised")
 st.markdown("This application helps to **visualise EU documents** and the **relevant provisions cited   **.")
 option = st.selectbox('Select one piece of lex to visualise: ', ('', 'Example 1', 'Example 2', 'Example 3'))
-if option == 'Example 1':
-    graph.defaultGraph = example1
-# if st.button("Generate Visualisation"):
-#     graph.createGraph()
+if option:
+    num = re.search(r"\d", option).group(0)
+    print('num selected: ' + num)
+    graph.createGraph(num)
 components.html(graph.defaultGraph, width=1000, height=550)
+set_block_container_style()
+st.markdown('**The text below shows relevant sections highlighted by a BERT model.**')
+local_css("style.css")
+t = "<div>"
+t += graph.returnGraphText(1)
+t += '</div>'
+st.markdown(t, unsafe_allow_html=True)
