@@ -1,0 +1,105 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1000px;
+            height: 500px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"color": "blue", "group": 1, "id": "decision 91/369/eec", "label": "decision 91/369/eec", "shape": "dot", "size": 25, "title": "decision 91/369/eec \u003cbr\u003eNeighbors:\u003cbr\u003eregulation 1634/91\u003cbr\u003eregulation 1630/91\u003cbr\u003eregulation 1547/87\u003cbr\u003eregulation 804/68\u003cbr\u003eregulation 2011/91\u003cbr\u003eregulation 777/87"}, {"color": "yellow", "group": 2, "id": "regulation 804/68", "label": "regulation 804/68", "shape": "dot", "size": 10, "title": "regulation 804/68 \u003cbr\u003eNeighbors:\u003cbr\u003e"}, {"color": "yellow", "group": 2, "id": "regulation 1630/91", "label": "regulation 1630/91", "shape": "dot", "size": 10, "title": "regulation 1630/91 \u003cbr\u003eNeighbors:\u003cbr\u003e"}, {"color": "yellow", "group": 2, "id": "regulation 777/87", "label": "regulation 777/87", "shape": "dot", "size": 10, "title": "regulation 777/87 \u003cbr\u003eNeighbors:\u003cbr\u003e"}, {"color": "yellow", "group": 2, "id": "regulation 1634/91", "label": "regulation 1634/91", "shape": "dot", "size": 10, "title": "regulation 1634/91 \u003cbr\u003eNeighbors:\u003cbr\u003e"}, {"color": "yellow", "group": 2, "id": "regulation 1547/87", "label": "regulation 1547/87", "shape": "dot", "size": 10, "title": "regulation 1547/87 \u003cbr\u003eNeighbors:\u003cbr\u003e"}, {"color": "yellow", "group": 2, "id": "regulation 2011/91", "label": "regulation 2011/91", "shape": "dot", "size": 10, "title": "regulation 2011/91 \u003cbr\u003eNeighbors:\u003cbr\u003e"}]);
+        edges = new vis.DataSet([{"arrows": "to", "color": "blue", "from": "decision 91/369/eec", "to": "regulation 804/68", "weight": 5}, {"arrows": "to", "color": "blue", "from": "decision 91/369/eec", "to": "regulation 1630/91", "weight": 5}, {"arrows": "to", "color": "blue", "from": "decision 91/369/eec", "to": "regulation 777/87", "weight": 5}, {"arrows": "to", "color": "blue", "from": "decision 91/369/eec", "to": "regulation 1634/91", "weight": 5}, {"arrows": "to", "color": "blue", "from": "decision 91/369/eec", "to": "regulation 1547/87", "weight": 5}, {"arrows": "to", "color": "blue", "from": "decision 91/369/eec", "to": "regulation 2011/91", "weight": 5}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
