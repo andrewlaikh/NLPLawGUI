@@ -9,7 +9,8 @@ import itertools
 @st.cache(allow_output_mutation=True)
 class Graph:
     def __init__(self):
-        self.defaultGraph = self.returnGraph(1)
+        self.defaultGraph = self.returnGraph(2)
+        self.defaultGraphText = self.returnGraphText(2)
 
     def returnGraph(self, num):
         fileName = 'example' + str(num) + r'.html'
@@ -22,8 +23,8 @@ class Graph:
         self.defaultGraph = self.returnGraph(num)
 
     def returnGraphText(self, num):
-        fileName = 'example' + str(num) + r'text.html'
-        with open(fileName, 'r') as file:
+        fileName = 'html' + str(num) + r'text.html'
+        with open(fileName, 'r', errors='ignore') as file:
             text = file.read()
             text = text.replace('border: 1px', 'border: 0px')
         text = text.lower()

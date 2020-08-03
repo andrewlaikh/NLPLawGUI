@@ -1,6 +1,5 @@
 # Utility parser to 1. create string for prediction for NER 2. process prediction into HTML for streamlit
 import string
-
 from bs4 import BeautifulSoup
 
 
@@ -54,25 +53,52 @@ def createString(textList):
     return outputString
 
 
-def markString(prediction, textList):
+def markString(predictionList, textList):
     blueStartSpan = r"<span class='highlight blue'>"
     greenStartSpan = r"<span class='highlight green'>"
     redStartSpan = r"<span class='highlight red'>"
     endSpan = r"</span>"
-#     next step is to match prediction to output and use it as is
+    bigOutputList = []
+    smallerList = predictionList[0]
+    predictionListCounter = 0
+    for textIndivList in textList:
+        smallOutputList = []
+        for textIndivItem in textIndivList:
+            value = list(smallerList[predictionListCounter].values())[0]
+            predictionListCounter += 1
+            if value == "Context":
+                textIndivItem = blueStartSpan + textIndivItem + endSpan
+            elif value == "Legislation":
+                textIndivItem = greenStartSpan + textIndivItem + endSpan
+            elif value == "Provision":
+                textIndivItem = redStartSpan + textIndivItem + endSpan
+            smallOutputList.append(textIndivItem)
+        bigOutputList.append(smallOutputList)
+    return bigOutputList
+
+
+def flattenHtmlAndProcessedText(modList, paraList):
+    outputString = ''
+    for indivModList, indivParaList in zip(modList, paraList):
+        if len(indivParaList) > 1:
+            outputString += r'<p>' + " ".join(indivModList) + r'</p>'
+        else:
+            outputStirng += paraList[0] + " ".join(indivModList)
+        outputString += r'<p/>'
+    return outputString
 
 
 rawText = findText('raw1text.html')
 paraList = saveParaMarks(rawText)
-assert len(paraList) == 170
+print(paraList)
+# assert len(paraList) == 170
 outputList = preprocessText(rawText)
+print(outputList)
 outputString = createString(outputList)
-# print(outputList)
 print(outputString)
-# print(paraList)
-outputString = outputString.replace(' +', ' ')
-print(len(outputString.split(' ')))
-# markString(prediction,textList)
-# proposed: algo find chars and see if match if not
-# continue down next char to find match
-# keep going but note that python is slow
+# print(outputString)
+# modList = markString(prediction, outputList)
+# modOutput = flattenHtmlAndProcessedText(modList, paraList)
+# htmlOutput = open("html2Text.html", "w", errors="ignore")
+# htmlOutput.write(modOutput)
+# htmlOutput.close()
