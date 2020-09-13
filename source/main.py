@@ -7,6 +7,7 @@ from source.layout import local_css
 from source.layout import set_block_container_style
 
 os.chdir(r"/app/source")
+print('current location is: ' + os.getcwd())
 
 graph = Graph()
 
