@@ -23,7 +23,7 @@ class Graph:
         self.defaultGraph = self.returnGraph(num)
 
     def returnGraphText(self, num):
-        fileName = 'html' + str(num) + r'text.html'
+        fileName = 'html' + str(num) + r'Text.html'
         with open(fileName, 'r', errors='ignore') as file:
             text = file.read()
             text = text.replace('border: 1px', 'border: 0px')
