@@ -1,2 +1,2 @@
-web: sh setup.sh && cd app/source/ && streamlit run main.py
+web: sh setup.sh && cd source && streamlit run main.py
 
