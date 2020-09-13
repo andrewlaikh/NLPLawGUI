@@ -1,2 +1,2 @@
-web: sh setup.sh && cd NLPLawGUI/source && streamlit run main.py
+web: sh setup.sh && cd app/source/ && streamlit run main.py
 
