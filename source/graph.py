@@ -13,6 +13,8 @@ class Graph:
         self.defaultGraphText = self.returnGraphText(2)
 
     def returnGraph(self, num):
+        print('curr dir')
+        print(os.getcwd())
         fileName = 'example' + str(num) + r'.html'
         with open(fileName, 'r') as file:
             text = file.read()
@@ -23,6 +25,8 @@ class Graph:
         self.defaultGraph = self.returnGraph(num)
 
     def returnGraphText(self, num):
+        print('curr dir')
+        print(os.getcwd())
         fileName = 'html' + str(num) + r'Text.html'
         with open(fileName, 'r', errors='ignore') as file:
             text = file.read()

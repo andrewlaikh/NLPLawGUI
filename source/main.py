@@ -1,12 +1,13 @@
-import os 
+import os
 import re
 import streamlit as st
 import streamlit.components.v1 as components
-from source.graph import Graph
-from source.layout import local_css
-from source.layout import set_block_container_style
+from graph import Graph
+from layout import local_css
+from layout import set_block_container_style
 
-os.chdir(r"/app/source")
+# os.chdir(r"/app/source")
+# os.chdir("..")
 print('current location is: ' + os.getcwd())
 
 graph = Graph()
