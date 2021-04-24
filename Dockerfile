@@ -10,8 +10,8 @@ RUN pip install -r requirements.txt
 
 # copy into a directory of its own (so it isn't in the toplevel dir)
 COPY . /workdirectory
-RUN ls workdirectory
-RUN ls workdirectory/source
+# RUN ls workdirectory
+# RUN ls workdirectory/source
 WORKDIR /workdirectory/source
 
 # run it!
